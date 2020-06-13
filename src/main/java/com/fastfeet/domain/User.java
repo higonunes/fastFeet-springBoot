@@ -1,13 +1,12 @@
 package com.fastfeet.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -16,19 +15,39 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode
+@ToString
 public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String Name;
+    private String name;
 
-    private String passwordHash;
+    private String email;
 
-    @CreatedDate
+    @JsonIgnore
+    private String password;
+
+    @JsonIgnore
     private Date createAt;
 
-    @LastModifiedDate
+    @JsonIgnore
     private Date updateAt;
+
+    public User(String name, String password, String email) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+    }
+
+    @PrePersist
+    void createdAt() {
+        this.createAt = this.updateAt = new Date();
+    }
+
+    @PreUpdate
+    void updatedAt() {
+        this.updateAt = new Date();
+    }
 }
