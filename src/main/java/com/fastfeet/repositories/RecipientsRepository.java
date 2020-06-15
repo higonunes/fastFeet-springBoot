@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface RecipientsRepository extends JpaRepository<Recipient, Long> {
     List<Recipient> findAllByUserId(Integer userId);
+
 }

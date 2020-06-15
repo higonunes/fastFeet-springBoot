@@ -10,7 +10,8 @@ import java.util.Date;
 public class JWTUtil {
 
     private String secret = "FASFADSGASFHSADFHSDXFHDSFH";
-    private Long time = 60000L;
+    private Long time = 600000L;
+
     private Algorithm algorithm = Algorithm.HMAC512(secret.getBytes());
 
     public String generateToken(String username) {
@@ -22,16 +23,14 @@ public class JWTUtil {
     }
 
     public String tokenValid(String token) {
-
         var decodedJWT = JWT.require(algorithm).build().verify(token);
-
         if (decodedJWT != null) {
             var username = decodedJWT.getSubject();
             if (username != null) {
                 return decodedJWT.getSubject();
             }
         }
-
         return null;
     }
+
 }

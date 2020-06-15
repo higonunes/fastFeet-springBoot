@@ -17,10 +17,12 @@ public class UserResource {
     @Autowired
     private UserService userService;
 
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<User> listByUser(@PathVariable Integer id) {
         return ResponseEntity.ok().body(userService.getUser(id));
     }
+
 
     @PostMapping
     public ResponseEntity<?> create(@Valid @RequestBody UserDTO userDTO) {

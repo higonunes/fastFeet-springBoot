@@ -2,8 +2,6 @@ package com.fastfeet.DTO;
 
 import com.fastfeet.domain.User;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -32,8 +30,6 @@ public class UserDTO implements Serializable {
     private String password;
 
     public User toUser() {
-
         return new User(this.name, this.password, this.email);
     }
-
 }

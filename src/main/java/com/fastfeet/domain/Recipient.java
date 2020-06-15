@@ -11,6 +11,7 @@ import java.util.Date;
 @Getter @Setter @NoArgsConstructor @EqualsAndHashCode @ToString
 public class Recipient implements Serializable {
 
+
     /**
      *
      */
@@ -26,6 +27,7 @@ public class Recipient implements Serializable {
 
     public Recipient(String name, String rua, Integer numero, String complemento, String estado, String cidade, String CEP, User user) {
         this.name = name;
+
         this.numero = numero;
         this.rua = rua;
         this.complemento = complemento;
