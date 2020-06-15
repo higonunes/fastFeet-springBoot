@@ -23,7 +23,7 @@ public class RecipientService {
     public List<Recipient> listRecipientsByUser(Integer userId) {
         var user = SessionService.authenticated();
 
-        if(user == null || !user.getId().equals(userId)) {
+        if (user == null || !user.getId().equals(userId)) {
             throw new AuthorizationException("Verifique o token ou id do usuário");
         }
 
@@ -33,7 +33,7 @@ public class RecipientService {
     public void createRecipient(RecipientDTO recipientDTO, Integer userId) {
         var user = SessionService.authenticated();
 
-        if(user == null || !user.getId().equals(userId)) {
+        if (user == null || !user.getId().equals(userId)) {
             throw new AuthorizationException("Verifique o token ou id do usuário");
         }
 
@@ -47,13 +47,13 @@ public class RecipientService {
     public Recipient getRecipientById(Integer userId, Long id) {
         var user = SessionService.authenticated();
 
-        if(user == null || !user.getId().equals(userId)) {
+        if (user == null || !user.getId().equals(userId)) {
             throw new AuthorizationException("Verifique o token ou id do usuário");
         }
 
         var response = recipientsRepository.findById(id);
 
-        if(response.isPresent()) {
+        if (response.isPresent()) {
             return response.get();
         } else {
             throw new ObjectNotFound("Recipient não encontrado");
