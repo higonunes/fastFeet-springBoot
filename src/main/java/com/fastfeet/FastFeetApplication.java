@@ -36,7 +36,7 @@ public class FastFeetApplication implements CommandLineRunner {
         ));
 
         recipientsRepository.saveAll(Arrays.asList(
-                new Recipient(2, "Rua coronel euripedes bezerra", "Aririzal Residence", "MA", "São Luís", "65066-260", user1)
+                new Recipient("João Higo Sousa Nunes", "Rua coronel euripedes bezerra", 2, "Aririzal Residence", "MA", "São Luís", "65066-260", user1)
         ));
     }
 }

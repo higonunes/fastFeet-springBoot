@@ -22,9 +22,10 @@ public class Recipient implements Serializable {
 
     private Integer numero;
 
-    private String rua, complemento, estado, cidade, CEP;
+    private String name, rua, complemento, estado, cidade, CEP;
 
-    public Recipient(Integer numero, String rua, String complemento, String estado, String cidade, String CEP, User user) {
+    public Recipient(String name, String rua, Integer numero, String complemento, String estado, String cidade, String CEP, User user) {
+        this.name = name;
         this.numero = numero;
         this.rua = rua;
         this.complemento = complemento;
