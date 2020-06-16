@@ -1,12 +1,16 @@
 package com.fastfeet.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fastfeet.enums.Perfil;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -29,6 +33,10 @@ public class User implements Serializable {
 
     private String email;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "PERFIS")
+    private final Set<Integer> perfis = new HashSet<>();
+
     @JsonIgnore
     private String password;
 
@@ -38,14 +46,28 @@ public class User implements Serializable {
     @JsonIgnore
     private Date updateAt;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "creator")
+    private List<Deliveryman> deliverymen;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Recipient> recipients;
+
 
     public User(String name, String password, String email) {
         this.name = name;
         this.password = password;
         this.email = email;
+        addPerfil(Perfil.CREATOR);
+    }
+
+    public Set<Perfil> getPerfis() {
+        return perfis.stream().map(Perfil::toEnum).collect(Collectors.toSet());
+    }
+
+    public void addPerfil(Perfil perfil) {
+        perfis.add(perfil.getId());
     }
 
     @PrePersist
@@ -57,4 +79,5 @@ public class User implements Serializable {
     void updatedAt() {
         this.updateAt = new Date();
     }
+
 }

@@ -2,6 +2,7 @@ package com.fastfeet;
 
 import com.fastfeet.domain.Recipient;
 import com.fastfeet.domain.User;
+import com.fastfeet.enums.Perfil;
 import com.fastfeet.repositories.RecipientsRepository;
 import com.fastfeet.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +31,12 @@ public class FastFeetApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         var user1 = new User("João Higo", bCryptPasswordEncoder.encode("12345"), "higo.sousaa@gmail.com");
+        user1.addPerfil(Perfil.ADMIN);
         userRepository.saveAll(Arrays.asList(
                 user1,
                 new User("Iones Maria", bCryptPasswordEncoder.encode("12345"), "iones.sousaa@gmail.com")
         ));
+
 
         recipientsRepository.saveAll(Arrays.asList(
                 new Recipient("João Higo Sousa Nunes", "Rua coronel euripedes bezerra", 2, "Aririzal Residence", "MA", "São Luís", "65066-260", user1)

@@ -1,11 +1,11 @@
 package com.fastfeet.resources;
 
-import com.fastfeet.DTO.RecipientDTO;
+import com.fastfeet.dto.RecipientDTO;
 import com.fastfeet.Services.RecipientService;
 import com.fastfeet.domain.Recipient;
-import com.fastfeet.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -18,6 +18,7 @@ public class RecipientsResource {
     @Autowired
     private RecipientService recipientService;
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping(value = "/{userId}")
     public ResponseEntity<?> createRecipient(@PathVariable Integer userId, @Valid @RequestBody RecipientDTO recipientDTO) {
         recipientService.createRecipient(recipientDTO, userId);

@@ -1,7 +1,7 @@
 package com.fastfeet.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fastfeet.DTO.SessionDTO;
+import com.fastfeet.dto.SessionDTO;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

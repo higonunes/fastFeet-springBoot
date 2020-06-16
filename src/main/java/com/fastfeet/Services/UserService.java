@@ -1,6 +1,6 @@
 package com.fastfeet.Services;
 
-import com.fastfeet.DTO.UserDTO;
+import com.fastfeet.dto.UserDTO;
 
 import com.fastfeet.Services.Exception.AuthorizationException;
 import com.fastfeet.domain.User;

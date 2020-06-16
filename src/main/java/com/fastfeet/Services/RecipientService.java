@@ -1,6 +1,6 @@
 package com.fastfeet.Services;
 
-import com.fastfeet.DTO.RecipientDTO;
+import com.fastfeet.dto.RecipientDTO;
 import com.fastfeet.Services.Exception.AuthorizationException;
 import com.fastfeet.Services.Exception.ObjectNotFound;
 import com.fastfeet.domain.Recipient;

@@ -1,4 +1,4 @@
-package com.fastfeet.DTO;
+package com.fastfeet.dto;
 
 import com.fastfeet.domain.Recipient;
 import lombok.Getter;
@@ -15,6 +15,11 @@ import java.io.Serializable;
 @NoArgsConstructor
 @ToString
 public class RecipientDTO implements Serializable {
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
     @NotNull
     private Integer numero;

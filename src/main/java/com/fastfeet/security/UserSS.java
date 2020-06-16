@@ -1,11 +1,15 @@
 package com.fastfeet.security;
 
+import com.fastfeet.enums.Perfil;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @ToString
@@ -19,11 +23,14 @@ public class UserSS implements UserDetails {
     private Integer id;
     private String email;
     private String password;
+    private Collection<? extends GrantedAuthority> authorities;
 
-    public UserSS(Integer id, String email, String senha) {
+    public UserSS(Integer id, String email, String senha, Set<Perfil> perfis) {
         this.id = id;
         this.email = email;
         this.password = senha;
+        this.authorities = perfis.stream().map(x -> new
+                SimpleGrantedAuthority(x.getDescricao())).collect(Collectors.toList());
     }
 
     public Integer getId() {
@@ -32,7 +39,7 @@ public class UserSS implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.fastfeet.DTO;
+package com.fastfeet.dto;
 
 import com.fastfeet.domain.User;
 import lombok.*;

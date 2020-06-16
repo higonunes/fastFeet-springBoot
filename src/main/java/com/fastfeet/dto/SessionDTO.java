@@ -1,4 +1,4 @@
-package com.fastfeet.DTO;
+package com.fastfeet.dto;
 
 
 import lombok.Getter;

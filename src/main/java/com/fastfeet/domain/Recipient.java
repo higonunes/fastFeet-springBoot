@@ -11,7 +11,6 @@ import java.util.Date;
 @Getter @Setter @NoArgsConstructor @EqualsAndHashCode @ToString
 public class Recipient implements Serializable {
 
-
     /**
      *
      */
@@ -20,14 +19,16 @@ public class Recipient implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Integer numero;
-
     private String name, rua, complemento, estado, cidade, CEP;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Recipient(String name, String rua, Integer numero, String complemento, String estado, String cidade, String CEP, User user) {
         this.name = name;
-
         this.numero = numero;
         this.rua = rua;
         this.complemento = complemento;
@@ -36,11 +37,6 @@ public class Recipient implements Serializable {
         this.CEP = CEP;
         this.user = user;
     }
-
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
 
     @JsonIgnore
     private Date createAt;
