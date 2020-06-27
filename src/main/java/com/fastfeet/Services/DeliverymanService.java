@@ -31,7 +31,6 @@ public class DeliverymanService {
         return all.stream().map(DeliverymanListDTO::new).collect(Collectors.toList());
     }
 
-
     public Deliveryman createDeliveryman(Deliveryman deliveryman) {
         var userSS = SessionService.authenticated();
         if(userSS != null) {
@@ -49,13 +48,15 @@ public class DeliverymanService {
         if(userSS != null) {
             var result = deliverymanRepository.findById(id);
             if (result.isPresent()) {
-                deliveryman.setId(id);
-                deliverymanRepository.save(deliveryman);
+                result.get().setEmail(deliveryman.getEmail());
+                result.get().setName(deliveryman.getName());
+                deliverymanRepository.save(result.get());
+                return result.get();
             } else {
                 throw new ObjectNotFound("ID inválida");
             }
         }
-       return deliveryman;
+        return null;
     }
 
     public void deleteDeliveryman(String id) {

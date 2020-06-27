@@ -23,10 +23,12 @@ public class UserSS implements UserDetails {
     private Integer id;
     private String email;
     private String password;
+    private String name;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserSS(Integer id, String email, String senha, Set<Perfil> perfis) {
+    public UserSS(Integer id, String name, String email, String senha, Set<Perfil> perfis) {
         this.id = id;
+        this.name = name;
         this.email = email;
         this.password = senha;
         this.authorities = perfis.stream().map(x -> new
@@ -36,6 +38,8 @@ public class UserSS implements UserDetails {
     public Integer getId() {
         return id;
     }
+
+    public String getName() { return name; }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

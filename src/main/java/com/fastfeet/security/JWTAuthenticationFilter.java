@@ -1,11 +1,17 @@
 package com.fastfeet.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fastfeet.domain.Creator;
 import com.fastfeet.dto.SessionDTO;
+import com.fastfeet.enums.Perfil;
+import net.minidev.json.JSONObject;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -16,8 +22,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+
     private AuthenticationManager authenticationManager;
     private JWTUtil jwtUtil;
 
@@ -39,9 +48,23 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        String username = ((UserSS) authResult.getPrincipal()).getUsername();
-        var token = jwtUtil.generateToken(username);
+        var user = ((UserSS) authResult.getPrincipal());
+        var token = jwtUtil.generateToken(user.getUsername());
+
         response.addHeader("Authorization", "Bearer " + token);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setCharacterEncoding("UTF-8");
+
+        var obj = new JSONObject();
+        obj.put("id", user.getId());
+        obj.put("name", user.getName());
+        obj.put("email", user.getUsername());
+        obj.put("perfis", user.getAuthorities().stream().map(x -> x.toString().substring(5)).collect(Collectors.toList()));
+
+        var obj2 = new JSONObject();
+        obj2.put("token", "Bearer " + token);
+        obj2.appendField("user", obj);
+        response.getWriter().write(obj2.toJSONString());
     }
 
     @Override

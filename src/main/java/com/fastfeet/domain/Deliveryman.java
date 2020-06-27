@@ -2,6 +2,7 @@ package com.fastfeet.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
+@DynamicUpdate
 @Getter @Setter @NoArgsConstructor @EqualsAndHashCode @ToString
 public class Deliveryman implements Serializable {
 
