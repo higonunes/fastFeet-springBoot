@@ -1,16 +1,17 @@
 package com.fastfeet;
 
+import com.fastfeet.domain.Creator;
 import com.fastfeet.domain.Recipient;
-import com.fastfeet.domain.User;
 import com.fastfeet.enums.Perfil;
+import com.fastfeet.repositories.CreatorRepository;
 import com.fastfeet.repositories.RecipientsRepository;
-import com.fastfeet.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.io.File;
 import java.util.Arrays;
 
 @SpringBootApplication
@@ -19,7 +20,7 @@ public class FastFeetApplication implements CommandLineRunner {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    private UserRepository userRepository;
+    private CreatorRepository creatorRepository;
 
     @Autowired
     private RecipientsRepository recipientsRepository;
@@ -30,11 +31,13 @@ public class FastFeetApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        var user1 = new User("João Higo", bCryptPasswordEncoder.encode("12345"), "higo.sousaa@gmail.com");
+        new File("images").mkdirs();
+
+        var user1 = new Creator("João Higo", bCryptPasswordEncoder.encode("12345"), "higo.sousaa@gmail.com");
         user1.addPerfil(Perfil.ADMIN);
-        userRepository.saveAll(Arrays.asList(
+        creatorRepository.saveAll(Arrays.asList(
                 user1,
-                new User("Iones Maria", bCryptPasswordEncoder.encode("12345"), "iones.sousaa@gmail.com")
+                new Creator("Iones Maria", bCryptPasswordEncoder.encode("12345"), "iones.sousaa@gmail.com")
         ));
 
 

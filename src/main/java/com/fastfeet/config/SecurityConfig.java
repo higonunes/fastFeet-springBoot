@@ -38,10 +38,11 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
 
     private static final String[] PUBLIC_MATCHES = {
             "/console/**"
+
     };
 
     private static final String[] PUBLIC_MATCHES_GET = {
-
+            "/image/**"
     };
 
     @Override

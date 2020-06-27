@@ -5,7 +5,7 @@ import com.fastfeet.Services.Exception.AuthorizationException;
 import com.fastfeet.Services.Exception.ObjectNotFound;
 import com.fastfeet.domain.Recipient;
 import com.fastfeet.repositories.RecipientsRepository;
-import com.fastfeet.repositories.UserRepository;
+import com.fastfeet.repositories.CreatorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ public class RecipientService {
     private RecipientsRepository recipientsRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private CreatorRepository creatorRepository;
 
     public List<Recipient> listRecipientsByUser(Integer userId) {
         var user = SessionService.authenticated();
@@ -27,7 +27,7 @@ public class RecipientService {
             throw new AuthorizationException("Verifique o token ou id do usuário");
         }
 
-        return recipientsRepository.findAllByUserId(userId);
+        return recipientsRepository.findAllByCreatorId(userId);
     }
 
     public void createRecipient(RecipientDTO recipientDTO, Integer userId) {
@@ -37,9 +37,9 @@ public class RecipientService {
             throw new AuthorizationException("Verifique o token ou id do usuário");
         }
 
-        var userRecip = userRepository.findById(userId).get();
+        var userRecip = creatorRepository.findById(userId).get();
         var recipient = recipientDTO.toRecipient();
-        recipient.setUser(userRecip);
+        recipient.setCreator(userRecip);
 
         recipientsRepository.save(recipient);
     }

@@ -1,35 +1,42 @@
 package com.fastfeet.Services;
 
+import com.fastfeet.Services.Exception.ObjectNotFound;
+import com.fastfeet.domain.Creator;
 import com.fastfeet.dto.UserDTO;
 
 import com.fastfeet.Services.Exception.AuthorizationException;
-import com.fastfeet.domain.User;
-import com.fastfeet.repositories.UserRepository;
+import com.fastfeet.repositories.CreatorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
 @Service
-public class UserService {
+public class CreatorService {
     @Autowired
-    private UserRepository userRepository;
+    private CreatorRepository creatorRepository;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public User getUser(Integer id) {
+    public Creator getCreators(Integer id) {
         var user = SessionService.authenticated();
         if(user == null || !user.getId().equals(id)) {
             throw new AuthorizationException("Verifique o token ou id do usuário");
         } else {
-           return userRepository.findById(user.getId()).get();
+           return creatorRepository.findById(user.getId()).get();
         }
     }
 
-    public void createUser(UserDTO userDTO) {
+    public void createCreator(UserDTO userDTO) {
         var user = userDTO.toUser();
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+        creatorRepository.save(user);
+    }
+
+    public void deleteCreator(int id) {
+        var creator = creatorRepository.findById(id);
+        if(creator.isEmpty()) throw new ObjectNotFound("Não encontrado");
+        creator.ifPresent(d -> creatorRepository.delete(d));
     }
 }

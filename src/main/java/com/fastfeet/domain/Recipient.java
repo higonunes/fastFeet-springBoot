@@ -24,10 +24,10 @@ public class Recipient implements Serializable {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "creator_id")
+    private Creator creator;
 
-    public Recipient(String name, String rua, Integer numero, String complemento, String estado, String cidade, String CEP, User user) {
+    public Recipient(String name, String rua, Integer numero, String complemento, String estado, String cidade, String CEP, Creator creator) {
         this.name = name;
         this.numero = numero;
         this.rua = rua;
@@ -35,7 +35,7 @@ public class Recipient implements Serializable {
         this.estado = estado;
         this.cidade = cidade;
         this.CEP = CEP;
-        this.user = user;
+        this.creator = creator;
     }
 
     @JsonIgnore

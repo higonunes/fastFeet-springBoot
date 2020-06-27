@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class User implements Serializable {
+public class Creator implements Serializable {
 
     /**
      *
@@ -51,11 +51,11 @@ public class User implements Serializable {
     private List<Deliveryman> deliverymen;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "creator")
     private List<Recipient> recipients;
 
 
-    public User(String name, String password, String email) {
+    public Creator(String name, String password, String email) {
         this.name = name;
         this.password = password;
         this.email = email;

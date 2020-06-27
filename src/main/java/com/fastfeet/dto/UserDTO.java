@@ -1,6 +1,6 @@
 package com.fastfeet.dto;
 
-import com.fastfeet.domain.User;
+import com.fastfeet.domain.Creator;
 import lombok.*;
 
 import javax.validation.constraints.Email;
@@ -29,7 +29,7 @@ public class UserDTO implements Serializable {
     @NotEmpty(message = "A senha é obrigatória")
     private String password;
 
-    public User toUser() {
-        return new User(this.name, this.password, this.email);
+    public Creator toUser() {
+        return new Creator(this.name, this.password, this.email);
     }
 }

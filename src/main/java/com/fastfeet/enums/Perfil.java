@@ -3,7 +3,7 @@ package com.fastfeet.enums;
 public enum Perfil {
     ADMIN(1, "ROLE_ADMIN"),
     CREATOR(2, "ROLE_CREATOR"),
-    ENTREGADOR(3, "ROLE_ENTREGADOR");
+    ENTREGADOR(3, "ROLE_DELIVERYMAN");
 
     private final int id;
     private final String descricao;

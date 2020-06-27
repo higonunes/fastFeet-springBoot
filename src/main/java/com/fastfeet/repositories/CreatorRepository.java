@@ -1,14 +1,14 @@
 package com.fastfeet.repositories;
 
-import com.fastfeet.domain.User;
+import com.fastfeet.domain.Creator;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface CreatorRepository extends JpaRepository<Creator, Integer> {
 
     @Transactional(readOnly = true)
-    User findByemail(String email);
+    Creator findByemail(String email);
 
 }
